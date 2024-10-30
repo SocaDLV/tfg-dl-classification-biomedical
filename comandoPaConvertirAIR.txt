@@ -1,0 +1,3 @@
+mo --saved_model_dir C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\mobilenetv2_savedmodel --data_type FP16 --output_dir C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\model_ir --input_shape [1,224,224,3] --framework tf
+
+mo --saved_model_dir C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\mobilenetv2_savedmodel --output_dir C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\model_ir --input_shape [1,224,224,3] --framework tf --use_legacy_frontend
