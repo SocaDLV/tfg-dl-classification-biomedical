@@ -1,4 +1,7 @@
+#V1 -> Versió original bàsica: Procesament estàndard proporcionat per Tensorflow, sense tècniques de optimització.
+
 import os
+import re
 import time
 import numpy as np
 import psutil
@@ -19,7 +22,7 @@ from PIL import Image
 model = MobileNetV2(weights='imagenet')
 
 # Ruta de las imágenes de prueba (dataset ImageNet)
-image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\tinyImageNet')
+image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\tinyImageNet3K')
 
 # Función para redimensionar las imágenes a 224x224, comprueba que tengan todos los canales RGB, y las prepara para la inferencia
 def preprocess_image(image_path):
@@ -42,9 +45,13 @@ def preprocess_image(image_path):
     
     return img_array
 
+# Función para ordenar por número dentro del nombre del archivo
+def natural_sort_key(filename):
+    return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', filename)]
+
 # Función para medir el uso de CPU y tiempos de inferencia
 def classify_and_measure(image_folder):
-    image_files = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith(('.jpg', '.jpeg', '.png', '.JPEG'))]
+    image_files = [os.path.join(image_folder, f) for f in sorted(os.listdir(image_folder), key=natural_sort_key) if f.endswith(('.jpg', '.jpeg', '.png', '.JPEG'))]
     
     total_inference_time = 0
     cpu_usage_start = psutil.cpu_percent(interval=None)  # Medir el uso inicial del CPU
