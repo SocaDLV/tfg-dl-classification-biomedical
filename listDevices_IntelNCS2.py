@@ -1,4 +1,4 @@
-import openvino as ov
+import openvino.runtime as ov
 
 core = ov.Core()
 

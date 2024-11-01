@@ -11,6 +11,7 @@ import tensorflow as tf
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input, decode_predictions
+
 from pathlib import Path
 from PIL import Image
 
@@ -66,7 +67,7 @@ def classify_and_measure(image_folder):
         total_inference_time += inference_time
 
         # Decodificar y mostrar la predicción
-        decoded_preds = decode_predictions(preds, top=3)[0]
+        decoded_preds = decode_predictions(preds, top=1)[0]
         print(f"Predicción para {img_file}: {decoded_preds}")
         print(f"Tiempo de inferencia: {inference_time:.4f} segundos")
     

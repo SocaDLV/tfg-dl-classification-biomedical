@@ -1,4 +1,5 @@
 # 30/10/24 -> Funcionant bé amb el modo CPU
+# 1/11/24 -> Funcionant bé amb el Movidius
 
 import cv2
 import numpy as np
