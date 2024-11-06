@@ -6,12 +6,12 @@ import time
 import numpy as np
 import psutil
 import cv2
-import tensorflow as tf
+import tflite_runtime.interpreter as tflite
 from pathlib import Path
 
 # Cargar el modelo TensorFlow Lite en la Raspberry Pi
 model_path = "mobilenet_v2_optimized.tflite"
-interpreter = tf.lite.Interpreter(model_path=model_path)
+interpreter = tflite.Interpreter(model_path=model_path)
 interpreter.allocate_tensors()
 
 # Obtener detalles de entrada y salida del modelo
@@ -59,5 +59,5 @@ def classify_and_measure(image_folder):
     print(f"Uso medio del CPU: {((cpu_usage_start + cpu_usage_end) / 2):.2f}%")
 
 # Ejecutar la función de clasificación y medición
-image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\tinyImageNet3K')
+image_folder = Path(os.path.expanduser('~/codi/TFG/tinyImageNet3K'))
 classify_and_measure(image_folder)
