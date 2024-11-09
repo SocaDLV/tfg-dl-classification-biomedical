@@ -20,7 +20,7 @@ core = ov.Core()
 model = core.read_model(r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\model_ir\saved_model.xml")
 
 # Compilar el modelo para el dispositivo especificado (CPU o MYRIAD)
-compiled_model = core.compile_model(model=model, device_name="MYRIAD")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
+compiled_model = core.compile_model(model=model, device_name="CPU")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
 
 # Prepara la imagen de entrada
 def preprocess_image(image_path):
