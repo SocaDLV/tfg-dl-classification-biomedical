@@ -28,7 +28,7 @@ def load_labels(labels_path):
     return labels
 
 # Ruta de las etiquetas correctas por cada foto
-labels_dict = load_labels(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\IntelNCS2_RPZ2W_validation_imgs_correct_preds.txt'))
+labels_dict = load_labels(Path(os.path.expanduser('~/codi/TFG/IntelNCS2_RPZ2W_validation_imgs_correct_preds.txt')))
 
 # Función para redimensionar las imágenes a 224x224, comprobando canales RGB, y preparando la inferencia
 def preprocess_image(image_path):
