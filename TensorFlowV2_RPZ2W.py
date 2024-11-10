@@ -72,10 +72,10 @@ def classify_and_measure(image_folder):
 
         true_label = labels_dict[os.path.basename(img_file)]  # Obtener etiqueta real
         print(true_label)                                     # Comprobar que imprime bien la etiqueta real
-        print(int(top_pred_idx)[0])                           # Comprobar que imprime bien la etiqueta inferida
+        print(int((top_pred_idx)[0]))                           # Comprobar que imprime bien la etiqueta inferida
 
         # Comparar predicción con etiqueta
-        if int(top_pred_idx)[0] == int(true_label):
+        if int((top_pred_idx)[0]) == int(true_label):
             correct_predictions += 1
             print(f"La predicción es correcta! ✅")
         total_images += 1
