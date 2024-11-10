@@ -34,7 +34,7 @@ def load_labels(labels_path):
 
 
 # Ruta de las etiquetas correctas por cada foto
-labels_dict = load_labels(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\validation_imgs_correct_preds.txt'))
+labels_dict = load_labels(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\PC_validation_imgs_correct_preds.txt'))
 
 # Ruta de las imágenes de prueba (dataset ImageNet)
 image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\tinyImageNet3K_validation')
