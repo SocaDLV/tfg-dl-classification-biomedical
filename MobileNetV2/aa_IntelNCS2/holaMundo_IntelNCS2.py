@@ -9,7 +9,7 @@ import openvino.runtime as ov
 core = ov.Core()
 
 # Cargar el modelo IR
-model = core.read_model(r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\model_ir\saved_model.xml")
+model = core.read_model(r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\model_ir\saved_model.xml")
 
 # Compilar el modelo para el dispositivo especificado (CPU o MYRIAD)
 compiled_model = core.compile_model(model=model, device_name="CPU")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
@@ -30,7 +30,7 @@ output_key = compiled_model.output(0)
 network_input_shape = input_key.shape
 
 # Realiza la inferencia
-image_path = r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\tinyImageNet3K\00_prova_electricguitar.jpg"
+image_path = r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\tinyImageNet3K_validation\val_0.JPEG"
 input_image = preprocess_image(image_path)
 
 # Inferencia

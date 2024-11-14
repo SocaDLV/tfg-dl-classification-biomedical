@@ -19,7 +19,7 @@ from PIL import Image
 core = ov.Core()
 
 # Cargar el modelo IR
-model = core.read_model(r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\model_ir\saved_model.xml")
+model = core.read_model(r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\model_ir\saved_model.xml")
 
 # Compilar el modelo para el dispositivo especificado (CPU o MYRIAD)
 compiled_model = core.compile_model(model=model, device_name="CPU")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
@@ -34,10 +34,10 @@ def load_labels(labels_path):
     return labels
 
 # Ruta de las etiquetas correctas por cada foto
-labels_dict = load_labels(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\IntelNCS2_RPZ2W_validation_imgs_correct_preds.txt'))
+labels_dict = load_labels(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\IntelNCS2_RPZ2W_validation_imgs_correct_preds.txt'))
 
 # Ruta de las imágenes de prueba (dataset ImageNet)
-image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\tinyImageNet3K_validation')
+image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\tinyImageNet3K_validation')
 
 # Prepara la imagen de entrada
 def preprocess_image(image_path):

@@ -10,7 +10,7 @@ import tflite_runtime.interpreter as tflite
 from pathlib import Path
 
 # Cargar el modelo TensorFlow Lite en la Raspberry Pi
-model_path = "mobilenet_v2_optimized.tflite"
+model_path = '~/codi/TFG/MobileNetV2/mobilenet_v2_optimized.tflite'
 interpreter = tflite.Interpreter(model_path=model_path)
 interpreter.allocate_tensors()
 
@@ -28,7 +28,7 @@ def load_labels(labels_path):
     return labels
 
 # Ruta de las etiquetas correctas por cada foto
-labels_dict = load_labels(Path(os.path.expanduser('~/codi/TFG/IntelNCS2_RPZ2W_validation_imgs_correct_preds.txt')))
+labels_dict = load_labels(Path(os.path.expanduser('~/codi/TFG/MobileNetV2/IntelNCS2_RPZ2W_validation_imgs_correct_preds.txt')))
 
 # Función para redimensionar las imágenes a 224x224, comprobando canales RGB, y preparando la inferencia
 def preprocess_image(image_path):
@@ -90,5 +90,5 @@ def classify_and_measure(image_folder):
     print(f"Precisión en las {total_images} imágenes: {accuracy * 100:.2f}%")
 
 # Ejecutar la función de clasificación y medición
-image_folder = Path(os.path.expanduser('~/codi/TFG/tinyImageNet3K_validation'))
+image_folder = Path(os.path.expanduser('~/codi/TFG/MobileNetV2/tinyImageNet3K_validation'))
 classify_and_measure(image_folder)

@@ -17,7 +17,7 @@ from PIL import Image
 core = ov.Core()
 
 # Cargar el modelo IR
-model = core.read_model(r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\model_ir\saved_model.xml")
+model = core.read_model(r"C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\model_ir\saved_model.xml")
 
 # Compilar el modelo para el dispositivo especificado (CPU o MYRIAD)
 compiled_model = core.compile_model(model=model, device_name="CPU")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
@@ -40,7 +40,7 @@ output_key = compiled_model.output(0)
 
 network_input_shape = input_key.shape
 
-image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\tinyImageNet3K')
+image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\tinyImageNet3K')
 #input_image = preprocess_image(image_path)
 
 # Función para ordenar por número dentro del nombre del archivo
