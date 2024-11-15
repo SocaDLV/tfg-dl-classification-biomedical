@@ -8,9 +8,9 @@ from evaluate_model import evaluate_model
 from pathlib import Path
 
 # Define directories and parameters
-train_dir = (Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2\tinyImgNet-train'))  # Update with your training directory path
-val_dir = (Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2\tinyImgNet-val'))      # Update with your validation directory path
-model_save_path = (Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2\v1\fine_tuned_mobilenetv2.keras'))  # Path to save the model
+train_dir = (Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2\tinyImgNet-train'))
+val_dir = (Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2\tinyImgNet-val'))      
+model_save_path = (Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2\v1\fine_tuned_mobilenetv2.keras'))
 
 # Prepare data
 train_generator, val_generator = prepare_data(train_dir, val_dir)

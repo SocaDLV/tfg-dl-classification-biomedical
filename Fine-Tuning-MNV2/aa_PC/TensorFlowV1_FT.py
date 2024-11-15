@@ -52,6 +52,7 @@ def natural_sort_key(filename):
 def classify_and_measure(image_folder):
     # Asegúrate de cargar el modelo previamente entrenado y guardado
     model = tf.keras.models.load_model(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2\v1\fine_tuned_mobilenetv2.keras'))  # Cargar el modelo fine-tuned
+    model.summary(show_trainable=True, expand_nested=True)
     image_files = [os.path.join(image_folder, f) for f in sorted(os.listdir(image_folder), key=natural_sort_key) if f.endswith(('.jpg', '.jpeg', '.png', '.JPEG'))]
     
     total_inference_time = 0
