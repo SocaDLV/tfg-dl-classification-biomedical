@@ -34,10 +34,10 @@ def load_labels(labels_path):
 
 
 # Ruta de las etiquetas correctas por cada foto
-labels_dict = load_labels(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\PC_validation_imgs_correct_preds.txt'))
+labels_dict = load_labels(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\PC_validation_imgs_correct_preds.txt'))
 
 # Ruta de las imágenes de prueba (dataset ImageNet)
-image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\tinyImageNet3K_validation')
+image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\tinyImageNet3K_validation')
 
 # Función para redimensionar las imágenes a 224x224, comprueba que tengan todos los canales RGB, y las prepara para la inferencia
 def preprocess_image(image_path):
