@@ -5,7 +5,6 @@ from const import DIMX, DIMY, BATCH_SIZE, IMG_SCALE_MIN, IMG_SCALE_MAX
 from typing import List, Tuple
 from pathlib import Path
 
-
 def load_tinyimagenet(data_dir: str) -> Tuple[tf.Tensor, tf.Tensor, tf.Tensor, tf.Tensor, List[str]]:
     """
     Carga y preprocesa el dataset Tiny ImageNet.

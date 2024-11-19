@@ -17,4 +17,6 @@ DIMY=64 # resize images in y-dimension
 IMG_SCALE_MIN = 0               #De 0 a 1!!!                           ORIGINALMENT era de -1.0 a 1.0
 IMG_SCALE_MAX = 1.0
 
-BATCH_SIZE = 32 # batch size of training data
+BATCH_SIZE = 16                 # batch size of training data
+
+SHUFFLE_BUFFER_SIZE = 1000        # Nova variable pal tamany del buffer
