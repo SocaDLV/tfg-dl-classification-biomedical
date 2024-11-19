@@ -14,7 +14,7 @@ DIMX=64 # resize images in x-dimension
 DIMY=64 # resize images in y-dimension
 
 # Range of image pixel values
-IMG_SCALE_MIN = 0                #De 0 a 1!!!                           ORIGINALMENT era de -1.0 a 1.0
+IMG_SCALE_MIN = 0               #De 0 a 1!!!                           ORIGINALMENT era de -1.0 a 1.0
 IMG_SCALE_MAX = 1.0
 
 BATCH_SIZE = 32 # batch size of training data

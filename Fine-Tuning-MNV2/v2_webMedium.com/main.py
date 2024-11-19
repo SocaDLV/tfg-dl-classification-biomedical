@@ -38,6 +38,8 @@ def main():
         model.save(MODEL_FILE)
 
     else:  # we have a stored model
+        print("You already have a model, erase it or save it")
+        """"
         model = tf.keras.models.load_model(MODEL_FILE)
         if RETRAIN:
             compile_model(model, learning_rate=learning_rate / 2.)
@@ -45,6 +47,7 @@ def main():
             fit_history_retr = model.fit(train_dataset, epochs=NUM_RETRAIN_EPOCHS,
                                          validation_data=validation_dataset, callbacks=[tensorboard_callback])
             model.save(MODEL_FILE)
+        """
 
     # Start Fine Tuning
     learning_rate = 0.0001
@@ -80,3 +83,6 @@ def main():
     show_images(pred_dataset, "Tiny ImageNet Predictions", 5, class_names,
                 one_hot=False, predicted_classes=max_predictions, figsize=25, predictions=predictions)
     model.save(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2\v2_webMedium.com\ft_mobilenetv2_tinyin.h5'))
+
+if __name__ == "__main__":
+    main()
