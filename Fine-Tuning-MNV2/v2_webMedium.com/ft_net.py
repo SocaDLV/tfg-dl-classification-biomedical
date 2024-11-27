@@ -79,8 +79,9 @@ def unfreeze_base_layers(model: tf.keras.Model,
     """
     base_model = model.layers[1]
     # Unfreeze the last layers
-    for layer in base_model.layers[-min(len(base_model), layers):]:
-        layer.trainable = True
+    # !!Comente perque dona error al acabar de entrenar!!
+    #for layer in base_model.layers[-min(len(base_model), layers):]:
+    #    layer.trainable = True
     # Compile the model again to apply the changes
     model = compile_model(model, learning_rate)
     return model

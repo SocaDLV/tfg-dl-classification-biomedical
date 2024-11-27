@@ -52,7 +52,7 @@ def main():
     # Start Fine Tuning
     learning_rate = 0.0001
     unfreeze = 92
-    model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate)
+    ##model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate) -> !!Primer arreglar metodo en ft_net!!
     fit_history_ft1 = model.fit(train_dataset, epochs=NUM_FINETUNE_EPOCHS,
                                 validation_data=validation_dataset, callbacks=[tensorboard_callback])
     loss, accuracy = model.evaluate(validation_dataset)
