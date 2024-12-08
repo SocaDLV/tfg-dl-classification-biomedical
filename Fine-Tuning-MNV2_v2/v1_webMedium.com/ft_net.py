@@ -78,10 +78,18 @@ def unfreeze_base_layers(model: tf.keras.Model,
         specified layers unfrozen and the new learning rate applied.
     """
     base_model = model.layers[1]
+
+    # Depuración: imprimir cuántas capas se van a descongelar
+    num_layers_to_unfreeze = min(len(base_model.layers), layers)
+    print(f"Descongelando las últimas {num_layers_to_unfreeze} capas de {len(base_model.layers)} capas totales.")
+
+    
     # Unfreeze the last layers
     # !!Comente perque dona error al acabar de entrenar!!
-    #for layer in base_model.layers[-min(len(base_model), layers):]:
-    #    layer.trainable = True
+    
+    for layer in base_model.layers[-min(len(base_model.layers), layers):]:
+        layer.trainable = True
     # Compile the model again to apply the changes
+
     model = compile_model(model, learning_rate)
     return model

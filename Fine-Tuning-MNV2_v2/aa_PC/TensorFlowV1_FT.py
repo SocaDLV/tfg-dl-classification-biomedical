@@ -39,7 +39,7 @@ image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Mobile
 def preprocess_image(image_path):
     img = cv2.imread(image_path)
     img = cv2.resize(img, (224, 224))
-    img = img.astype(np.float64)       # Asegura el tipo de datos
+    img = img.astype(np.float32)       # Asegura el tipo de datos
     img = img / 255.0                  # Normaliza los valores de píxeles (0-1)
     img = img[np.newaxis, :]           # Añadir dimensión de batch para que sea (1, 224, 224, 3)
     return img
@@ -51,7 +51,7 @@ def natural_sort_key(filename):
 # Función para medir el uso de CPU y tiempos de inferencia
 def classify_and_measure(image_folder):
     # Asegúrate de cargar el modelo previamente entrenado y guardado
-    model = tf.keras.models.load_model(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v2\v1_webMedium.com\modelosFTuneados\ft_mobilenetv2_tinyin_v3.h5'))  # Cargar el modelo fine-tuned
+    model = tf.keras.models.load_model(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v2\v1_webMedium.com\modelosFTuneados\ft_mobilenetv2_tinyin_v6.h5'))  # Cargar el modelo fine-tuned
     model.summary(show_trainable=True, expand_nested=True)
     image_files = [os.path.join(image_folder, f) for f in sorted(os.listdir(image_folder), key=natural_sort_key) if f.endswith(('.jpg', '.jpeg', '.png', '.JPEG'))]
     

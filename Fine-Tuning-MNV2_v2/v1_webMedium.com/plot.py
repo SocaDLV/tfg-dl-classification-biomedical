@@ -37,12 +37,20 @@ def show_images(dataset: tf.data.Dataset, title: str,
     Returns:
     None
     """
-
+    """
     # unbatch and rebatch the dataset
     try:
         to_plot = dataset.rebatch(tile_dim*tile_dim)
     except:
         to_plot = dataset.batch(tile_dim*tile_dim)
+    """ #CANVI PROPOST PER GPT AVALL
+
+    # Check for rebatch support and fallback to batch if unavailable
+    if hasattr(dataset, 'rebatch'):
+        to_plot = dataset.rebatch(tile_dim * tile_dim)
+    else:
+        to_plot = dataset.batch(tile_dim * tile_dim)
+
 
     # Backscale of image pixels
     img_scale_delta = IMG_SCALE_MAX-IMG_SCALE_MIN
@@ -64,7 +72,12 @@ def show_images(dataset: tf.data.Dataset, title: str,
                     pred_value = predictions[i, predicted_classes[i]]
                     pred_label += f"/{pred_value*100.0:.1f}%"
                 true_label = class_names[label_index]
-                title_color = "red" if predicted_classes[i] != label_index else "black"
+                
+                #title_color = "red" if predicted_classes[i] != label_index else "black" UNA SOLUCIÓ BAIX
+                #title_color = "red" if tf.constant(predicted_classes[i], dtype=tf.int64) != label_index else "black"
+                title_color = "red" if tf.constant(predicted_classes[i], dtype=tf.int64).numpy() != label_index.numpy() else "black"
+
+
                 plot_image(
                     ax, img, class_names[label_index], title=f"Pred: {pred_label}, True: {true_label}", title_color=title_color)
 
