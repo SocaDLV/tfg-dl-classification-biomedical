@@ -51,21 +51,21 @@ def main():
 
     # Start Fine Tuning
     learning_rate = 0.0001
-    unfreeze = 92
-    model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate) #-> !!Primer arreglar metodo en ft_net!!
+    unfreeze = 20         # era 92 pero es moltissim
+    model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate)
     fit_history_ft1 = model.fit(train_dataset, epochs=NUM_FINETUNE_EPOCHS,
                                 validation_data=validation_dataset, callbacks=[tensorboard_callback])
     loss, accuracy = model.evaluate(validation_dataset)
     print("FINETUNE Step 1: validation accuracy: ", accuracy, "validation loss: ", loss)
 
-    unfreeze += 9
+    unfreeze += 8
     model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate / 2.0)
     fit_history_ft2 = model.fit(train_dataset, epochs=NUM_FINETUNE_EPOCHS,
                                 validation_data=validation_dataset, callbacks=[tensorboard_callback])
     loss, accuracy = model.evaluate(validation_dataset)
     print("FINETUNE Step 2: validation accuracy: ", accuracy, "validation loss: ", loss)
 
-    unfreeze += 9
+    unfreeze += 8
     model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate / 4.0)
     fit_history_ft3 = model.fit(train_dataset, epochs=NUM_FINETUNE_EPOCHS,
                                 validation_data=validation_dataset, callbacks=[tensorboard_callback])

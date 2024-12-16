@@ -63,33 +63,31 @@ def compile_model(model: tf.keras.Model, learning_rate: float,
 def unfreeze_base_layers(model: tf.keras.Model, 
     layers: int, learning_rate: float) -> tf.keras.Model:
     """
-    Unfreezes the top layers of the base model and compiles the updated 
-    model with a new learning rate.
+    Unfreezes a specified number of layers in the base model for fine-tuning.
 
     Parameters:
-    model (tf.keras.Model):The Keras model containing the base 
-        model whose layers are to be unfrozen.
+    model (tf.keras.Model): The Keras model containing the base model whose layers are to be unfrozen.
     layers (int): The number of top layers in the base model to unfreeze.
-    learning_rate (float): 
-        The learning rate to use when recompiling the model.
+    learning_rate (float): The learning rate to use when recompiling the model.
 
     Returns:
-    tf.keras.Model: The updated Keras model with the 
-        specified layers unfrozen and the new learning rate applied.
+    tf.keras.Model: The updated Keras model with the specified layers unfrozen and the new learning rate applied.
     """
+    # Access the base model
     base_model = model.layers[1]
 
-    # Depuración: imprimir cuántas capas se van a descongelar
+    # Determine the actual number of layers to unfreeze
     num_layers_to_unfreeze = min(len(base_model.layers), layers)
     print(f"Descongelando las últimas {num_layers_to_unfreeze} capas de {len(base_model.layers)} capas totales.")
 
-    
-    # Unfreeze the last layers
-    # !!Comente perque dona error al acabar de entrenar!!
-    
-    for layer in base_model.layers[-min(len(base_model.layers), layers):]:
-        layer.trainable = True
-    # Compile the model again to apply the changes
+    # Freeze all layers first (to avoid reactivating unnecessary layers)
+    for layer in base_model.layers:
+        layer.trainable = False
 
+    # Unfreeze the last `num_layers_to_unfreeze` layers
+    for layer in base_model.layers[-num_layers_to_unfreeze:]:
+        layer.trainable = True
+
+    # Compile the model again to apply the changes
     model = compile_model(model, learning_rate)
     return model
