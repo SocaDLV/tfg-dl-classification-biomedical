@@ -64,7 +64,8 @@ def _load_train_data(train_dir: str, class_to_index: dict) -> Tuple[tf.Tensor, t
             img = cv2.imread(img_path)
             img = cv2.resize(img, (224, 224))
             img = img.astype(np.float32)       # Asegura el tipo de datos
-            img = img / 255.0                  # Normaliza los valores de píxeles (0-1)
+            #img = img / 255.0                  # Normaliza los valores de píxeles (0-1)
+            img = img / 127.5 - 1.0               # Normaliza los valores de píxeles (-1.0 a 1.0)
             #img = img[np.newaxis, :]           # Añadir dimensión de batch para que sea (1, 224, 224, 3)
 
             images.append(img)
@@ -110,7 +111,8 @@ def _load_val_data(val_dir: str, class_to_index: dict) -> Tuple[tf.Tensor, tf.Te
         img = cv2.imread(img_path)
         img = cv2.resize(img, (224, 224))
         img = img.astype(np.float32)       # Asegura el tipo de datos
-        img = img / 255.0                  # Normaliza los valores de píxeles (0-1)
+        #img = img / 255.0                  # Normaliza los valores de píxeles (0-1)
+        img = img / 127.5 - 1.0               # Normaliza los valores de píxeles (-1.0 a 1.0)
         #img = img[np.newaxis, :]           # Añadir dimensión de batch para que sea (1, 224, 224, 3)
 
         images.append(img)
