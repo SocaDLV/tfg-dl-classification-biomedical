@@ -41,7 +41,7 @@ def build_ft_net(out_dim: int, learning_rate: float) -> tf.keras.Model:
     x = base_model(input, training=False)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)
     # optional for your own experiments
-    x = tf.keras.layers.Dropout(DROPOUT)(x) 
+    # x = tf.keras.layers.Dropout(DROPOUT)(x) 
     x = tf.keras.layers.Dense(HIDDEN, activation='relu')(x)
     predictions = tf.keras.layers.Dense(out_dim, 
         activation='softmax', name="output")(x)

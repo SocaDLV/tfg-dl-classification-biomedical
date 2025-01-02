@@ -51,21 +51,21 @@ def main():
 
     # Start Fine Tuning
     learning_rate = 0.005   # 2/1/25 -> Era 0.0001, canvi a 0.005, per vorer si aprèn més ràpid
-    unfreeze = 3            # era 92 pero es moltissim, passe a 20 -> 2/1/25 Canvi a 3
+    unfreeze = 4            # era 92 pero es moltissim, passe a 20 -> 2/1/25 Canvi a 4
     model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate)
     fit_history_ft1 = model.fit(train_dataset, epochs=NUM_FINETUNE_EPOCHS,
                                 validation_data=validation_dataset, callbacks=[tensorboard_callback])
     loss, accuracy = model.evaluate(validation_dataset)
     print("FINETUNE Step 1: validation accuracy: ", accuracy, "validation loss: ", loss)
 
-    unfreeze += 2            # 2/1/25 -> Era 8, canvi a 2, perq 8 pareix massa
+    unfreeze += 3            # 2/1/25 -> Era 8, canvi a 3, perq 8 pareix massa
     model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate / 2.0)
     fit_history_ft2 = model.fit(train_dataset, epochs=NUM_FINETUNE_EPOCHS,
                                 validation_data=validation_dataset, callbacks=[tensorboard_callback])
     loss, accuracy = model.evaluate(validation_dataset)
     print("FINETUNE Step 2: validation accuracy: ", accuracy, "validation loss: ", loss)
 
-    unfreeze += 2            # 2/1/25 -> Era 8, canvi a 2, perq 8 pareix massa
+    unfreeze += 3            # 2/1/25 -> Era 8, canvi a 3, perq 8 pareix massa
     model = unfreeze_base_layers(model, layers=unfreeze, learning_rate=learning_rate / 4.0)
     fit_history_ft3 = model.fit(train_dataset, epochs=NUM_FINETUNE_EPOCHS,
                                 validation_data=validation_dataset, callbacks=[tensorboard_callback])
