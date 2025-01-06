@@ -7,4 +7,4 @@ A CORREGIR/FER:
 - Organitzar en carpetes el GitHub, una carpeta per model de inferencia,i dins,una per plataforma. ✅
 - Instalar OpenVINO en la RP2 + provar codi del IntelNCS2 ahi (checkear Python 3.9.0) (No fucniona pq OpenVINO necesita un Python de 64-bits) ✅
 - Run al main.py del entrenament de MobileNetV2, avore si es completa correctament ✅
-- Com entrenar MobileNetV2 amb imatges de 64x64 no funciona, escalarles a 94x94. REDUIR tamany de la carpeta de entrenament xq sinó plena la RAM.
+- Com entrenar MobileNetV2 amb imatges de 64x64 no funciona, escalarles a 94x94. REDUIR tamany de la carpeta de entrenament xq sinó plena la RAM. ✅
