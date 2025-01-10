@@ -1,103 +1,60 @@
-#6/1/25 -> Falta adaptar a CIFAR-10 (es tal qual el codi del v2 encara)
-
-import os
-import re
-import time
-import numpy as np
-import psutil
-import cv2
 import tensorflow as tf
-from pathlib import Path
-import matplotlib.pyplot as plt
+import numpy as np
+import time
+import tensorflow_datasets as tfds
 
-# Cargar el archivo de clases de Tiny ImageNet (asegúrate de tener este archivo)
-def load_labels(labels_path):
-    labels = {}
-    with open(labels_path, 'r') as f:
-        for line in f:
-            img_name, label = line.strip().split()[:2]
-            labels[img_name] = label
-    return labels
+# Definir las clases de CIFAR-10
+cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
+                   'dog', 'frog', 'horse', 'ship', 'truck']
 
-# Función para decodificar las predicciones de Tiny ImageNet
-def decode_tiny_imagenet_predictions(predictions, top=1):
-    # Archivo con las clases de Tiny ImageNet
-    class_names = []
-    with open(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\tinyimagenet200_classes.txt')) as f: 
-        class_names = [line.strip() for line in f.readlines()]
+# Ruta a las imágenes de test
+data_dir = r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v3_cifar10\aa_PC\content\images'
 
-    # Obtener las predicciones más altas
-    top_indices = np.argsort(predictions[0])[::-1][:top]
-    top_predictions = [(class_names[i], predictions[0][i]) for i in top_indices]
+# Cargar las imágenes desde la carpeta local
+builder = tfds.folder_dataset.ImageFolder(data_dir)
+raw_test = builder.as_dataset(split='test', shuffle_files=True)
 
-    return top_predictions
+IMG_SIZE = 224 # All images will be resized to 224x224 -> for MobileNetV2
 
-# Ruta de las etiquetas correctas por cada foto
-labels_dict = load_labels(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\PC_validation_imgs_correct_preds.txt'))
+def format_example(pair):
+  image, label = pair['image'], pair['label']
+  image = tf.cast(image, tf.float32)
+  image = (image/127.5) - 1
+  image = tf.image.resize(image, (IMG_SIZE, IMG_SIZE))
+  return image, label
 
-# Ruta de las imágenes de prueba (dataset Tiny ImageNet)
-image_folder = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\MobileNetV2\tinyImageNet3K_validation')
+# Preparar el conjunto de test
+test_dataset = raw_test.map(format_example).batch(1)
 
-# Función para ajustar las imágenes, comprueba que tengan todos los canales RGB, y las prepara para la inferencia
-def preprocess_image(image_path):
-    img = cv2.imread(image_path)
-    img = cv2.resize(img, (224, 224))
-    img = img.astype(np.float32)       # Asegura el tipo de datos
-    img = img / 127.5 - 1.0            # Normaliza los valores de píxeles (-1.0 a 1.0)
-    #img = img / 255.0                 # Normaliza los valores de píxeles (0 a 1.0)
-    img = img[np.newaxis, :]           # Añadir dimensión de batch para que sea (1, 224, 224, 3)
-    return img
+# Cargar el modelo entrenado
+model = tf.keras.models.load_model(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v3_cifar10\modelosFTuneados\mnv2_cifar10_bo_v1.h5')
 
-# Función para ordenar por número dentro del nombre del archivo
-def natural_sort_key(filename):
-    return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', filename)]
+# Inicializar variables para métricas
+correct_predictions = 0
+total_images = 3000
+total_inference_time = 0
 
-# Función para medir el uso de CPU y tiempos de inferencia
-def classify_and_measure(image_folder):
-    # Asegúrate de cargar el modelo previamente entrenado y guardado
-    model = tf.keras.models.load_model(Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v2\v1_webMedium.com\modelosFTuneados\ft_mobilenetv2_tinyin_v14.h5'))  # Cargar el modelo fine-tuned
-    model.summary(show_trainable=True, expand_nested=True)
-    image_files = [os.path.join(image_folder, f) for f in sorted(os.listdir(image_folder), key=natural_sort_key) if f.endswith(('.jpg', '.jpeg', '.png', '.JPEG'))]
-    
-    total_inference_time = 0
-    cpu_usage_start = psutil.cpu_percent(interval=1)       # Medir uso inicial de CPU, intervalo de 1 segundo para mayor precisión
+# Realizar inferencia sobre 3000 imágenes
+for i, (image, label) in enumerate(test_dataset.take(total_images)):
+    start_time = time.time()  # Tiempo de inicio para esta imagen
 
-    # Variables para el % de aciertos
-    correct_predictions = 0
-    total_images = 0
+    # Realizar la predicción
+    #image = tf.expand_dims(image, axis=0)  # Añadir la dimensión de batch
+    prediction = model.predict(image)  # Predicción para la imagen
+    predicted_class = np.argmax(prediction)  # Clase con mayor probabilidad
+    true_class = label.numpy()  # Clase verdadera
 
-    for img_file in image_files:
-        img = preprocess_image(img_file)
-        
-        start_time = time.perf_counter()                   # Medir el tiempo de inferencia
-        preds = model.predict(img)                         # Hacer la predicción
-        inference_time = time.perf_counter() - start_time  # Calcular el tiempo de inferencia
-        total_inference_time += inference_time
+    # Contar los aciertos
+    if predicted_class == true_class:
+        correct_predictions += 1
 
-        # Decodificar la predicción usando la función personalizada
-        decoded_preds = decode_tiny_imagenet_predictions(preds, top=1)
-        print(f"Predicción para {img_file}: {decoded_preds}")
-        print(f"Tiempo de inferencia: {inference_time:.4f} segundos")
+    end_time = time.time()  # Tiempo de fin para esta imagen
+    total_inference_time += (end_time - start_time)
 
-        true_label = labels_dict[os.path.basename(img_file)]  # Obtener etiqueta real
-        print(decoded_preds[0][0])
-        print(true_label)
-        # Comparar predicción con etiqueta real
-        if decoded_preds[0][0] == true_label:
-            correct_predictions += 1
-            print(f"La predicción es correcta! ✅")
-        total_images += 1
+# Calcular el porcentaje de aciertos
+accuracy = (correct_predictions / total_images) * 100
 
-    cpu_usage_end = psutil.cpu_percent(interval=1)         # Medir el uso del CPU al final, intervalo de 1 segundo para mayor precisión
-    
-    # Mostrar resultados de rendimiento
-    print(f"Tiempo total de inferencia: {total_inference_time:.4f} segundos")
-    print(f"Uso medio del CPU: {((cpu_usage_start + cpu_usage_end) / 2):.2f}%")
-
-    # Calcular y mostrar precisión
-    print(f"Se han acertado {correct_predictions} del total de {total_images}")
-    accuracy = correct_predictions / total_images
-    print(f"Precisión en las {total_images} imágenes: {accuracy * 100:.2f}%")
-
-# Ejecutar la función de clasificación y medición
-classify_and_measure(image_folder)
+# Mostrar resultados
+print(f"Tiempo total de inferencia: {total_inference_time:.2f} segundos")
+print(f"Imágenes correctamente clasificadas: {correct_predictions}/{total_images}")
+print(f"Porcentaje de aciertos: {accuracy:.2f}%")
