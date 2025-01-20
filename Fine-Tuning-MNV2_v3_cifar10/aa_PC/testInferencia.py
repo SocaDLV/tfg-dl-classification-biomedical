@@ -42,11 +42,14 @@ for i, (image, label) in enumerate(test_dataset.take(total_images)):
     #image = tf.expand_dims(image, axis=0)  # Añadir la dimensión de batch
     prediction = model.predict(image)  # Predicción para la imagen
     predicted_class = np.argmax(prediction)  # Clase con mayor probabilidad
+    print("Se predice "+str(predicted_class))
     true_class = label.numpy()  # Clase verdadera
+    print("Resulta que es un "+str(true_class))
 
     # Contar los aciertos
     if predicted_class == true_class:
         correct_predictions += 1
+        print("✅")
 
     end_time = time.time()  # Tiempo de fin para esta imagen
     total_inference_time += (end_time - start_time)
