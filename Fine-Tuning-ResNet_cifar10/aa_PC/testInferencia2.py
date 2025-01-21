@@ -4,12 +4,8 @@ import time
 from fastai.vision.all import *
 from pathlib import Path
 
-#def format_example(pair):
-#    image, label = pair
-#    image = image.float() / 255.0
-#    return image, label
-
 def main():
+    
     # Importar 'accuracy' correctamente
     from fastai.metrics import accuracy
     # Ruta donde guardaste el modelo
