@@ -11,7 +11,7 @@ import tensorflow_datasets as tfds
 from pathlib import Path
 
 # Cargar el modelo TensorFlow Lite en la Raspberry Pi
-model_path = '~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/modelosFTuneados/mnv2_cifar10_bo_optimized.tflite'
+model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/modelosFTuneados/mnv2_cifar10_bo_optimized.tflite')
 interpreter = tflite.Interpreter(model_path=model_path)
 interpreter.allocate_tensors()
 
