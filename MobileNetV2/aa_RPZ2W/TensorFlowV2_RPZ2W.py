@@ -55,6 +55,7 @@ def classify_and_measure(image_folder):
     total_images = 0
 
     for img_file in image_files:
+        
         img = preprocess_image(img_file)
         
         # Preparar entrada para TensorFlow Lite
