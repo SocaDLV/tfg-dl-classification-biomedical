@@ -10,7 +10,7 @@ import tflite_runtime.interpreter as tflite
 from pathlib import Path
 
 # Cargar el modelo TensorFlow Lite en la Raspberry Pi
-model_path = '~/codi/TFG/MobileNetV2/mobilenet_v2_optimized.tflite'
+model_path = os.path.expanduser('~/codi/TFG/MobileNetV2/mobilenet_v2_optimized.tflite')
 interpreter = tflite.Interpreter(model_path=model_path)
 interpreter.allocate_tensors()
 
