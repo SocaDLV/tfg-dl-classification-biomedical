@@ -1,15 +1,21 @@
 # S'intenten arreglar errors del V2 (no s'arribava a processar "Frog" per exemple) i gastem algo de fastai
 
+import os
 import torch
 import numpy as np
 import time
-from fastai.vision.all import *
+from PIL import Image
 from pathlib import Path
 from random import sample
+from torchvision import transforms
 
 def main():
-    from fastai.metrics import accuracy
     
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+
     # Ruta del modelo
     model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-ResNet_cifar10/modelsPytorch/stage-2-pytorch')
     model = torch.load(model_path, map_location=torch.device('cpu'))
@@ -26,7 +32,7 @@ def main():
     images = []
     for class_dir in path.iterdir():
         if class_dir.is_dir():
-            all_images = list(class_dir.glob("*.jpg"))
+            all_images = list(class_dir.rglob("*.jpg"))
             sampled_images = sample(all_images, min(len(all_images), total_images // len(cifar10_classes)))
             images.extend(sampled_images)
 
@@ -40,13 +46,12 @@ def main():
         true_class = cifar10_classes.index(label_str)
 
         # Procesar imagen
-        image = PILImage.create(image_path)
-        image = image.resize((32, 32))
-        image = image.to_tensor().unsqueeze(0).float()
+        image = Image.open(image_path)
+        image_tensor = transform(image)
 
         start_time = time.time()
         with torch.no_grad():
-            prediction = model(image)
+            prediction = model(image_tensor)
         inference_time = time.time() - start_time
         total_inference_time += inference_time
 
