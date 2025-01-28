@@ -7,14 +7,17 @@ from fastai.vision.all import *
 from pathlib import Path
 import os
 from PIL import Image
+import random
+
 
 def preprocess_image(image_path):
     # Cargar imagen y aplicar preprocesamiento mínimo
-    img = Image.open(image_path).convert('RGB')
-    img = img.resize((32, 32))  # Redimensionar
+    img = Image.open(image_path) #.convert('RGB')
+    #img = img.resize((32, 32))   # Redimensionar
     img_tensor = torch.tensor(np.array(img)).permute(2, 0, 1).unsqueeze(0)  # Cambiar dimensiones
     img_tensor = img_tensor.float() / 255.0  # Normalizar valores entre 0 y 1
     return img_tensor
+
 
 def main():
     # Ruta del modelo
@@ -35,7 +38,10 @@ def main():
 
     # Procesar imágenes secuencialmente
     image_paths = list(Path(image_dir).glob('*/*.jpg'))[:total_images]
-    
+    random.shuffle(image_paths)
+    image_paths = image_paths[:total_images]
+
+
     for i, image_path in enumerate(image_paths):
         image = preprocess_image(image_path)
         label = cifar10_classes.index(image_path.parent.name)

@@ -47,6 +47,8 @@ def load_images(data_dir, total_images):
         image = image.astype(np.float32)
         image = (image / 127.5) - 1
         image = cv2.resize(image, (IMG_SIZE, IMG_SIZE))
+        images.append(image)
+        labels.append(cifar10_classes.index(label))
     
     return np.array(images), np.array(labels)
 

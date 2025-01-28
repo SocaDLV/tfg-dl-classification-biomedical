@@ -33,7 +33,7 @@ def main():
 
     # Inicializar variables para métricas
     correct_predictions = 0
-    total_images = 3000
+    total_images = 10
     total_inference_time = 0
 
     # Usar el DataLoader de validación para iterar sobre las imágenes
