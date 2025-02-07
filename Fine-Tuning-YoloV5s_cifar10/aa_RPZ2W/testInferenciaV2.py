@@ -1,5 +1,5 @@
 
-# Bassat en el test RPZ2W V3 de ResNet: Deuria oferir <0.35s per imatge + random sample de test
+# FUNCIONA MILLOR, basat en el test RPZ2W V3 de ResNet: mateixa velocitat pero oferix random sample del test
 
 import os
 import torch
