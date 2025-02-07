@@ -48,6 +48,7 @@ def main():
         # Procesar imagen
         image = Image.open(image_path)
         image_tensor = transform(image)
+        image_tensor = image_tensor.unsqueeze(0)
 
         start_time = time.time()
         with torch.no_grad():
