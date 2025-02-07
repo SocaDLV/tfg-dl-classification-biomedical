@@ -1,4 +1,6 @@
 
+# FUNCIONA, pero molt lento i no fa un sample aleatori de les imatges de test, pq està bassat en el test de PC
+
 import os
 import torch
 import torchvision.transforms as T
