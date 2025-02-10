@@ -1,0 +1,4 @@
+mo --saved_model_dir C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v3_cifar10\mnv2_cifar10_bo_v1_saved_model_format --data_type FP16 --output_dir C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v3_cifar10\modelosFTuneados\mnv2_cifar_10_bo_v1_modelIR --input_shape [1,224,224,3] --framework tf
+
+MILLOR EL DE BAIX
+mo --saved_model_dir C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v3_cifar10\mnv2_cifar10_bo_v1_saved_model_format --output_dir C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v3_cifar10\modelosFTuneados\mnv2_cifar_10_bo_v1_modelIR --input_shape [1,224,224,3] --framework tf --use_legacy_frontend
