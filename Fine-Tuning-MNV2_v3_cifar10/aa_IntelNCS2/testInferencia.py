@@ -16,7 +16,7 @@ model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/modelosF
 model = core.read_model(model_path)
 
 # Compilar el modelo para el dispositivo especificado (CPU o MYRIAD)
-compiled_model = core.compile_model(model=model, device_name="CPU")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
+compiled_model = core.compile_model(model=model, device_name="MYRIAD")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
 
 # Definir las clases de CIFAR-10
 cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
@@ -76,7 +76,7 @@ for i, file in enumerate(image_files):
 
     # Obtener predicción
     result_index = np.argmax(result)
-    print(f"Predicción para {image}: {result_index}")
+    print(f"Predicción para imagen {i}: {result_index}")
     print(f"Tiempo de inferencia: {inference_time:.4f} segundos")
     print(f"Etiqueta real: {cifar10_classes[label]}")
 
