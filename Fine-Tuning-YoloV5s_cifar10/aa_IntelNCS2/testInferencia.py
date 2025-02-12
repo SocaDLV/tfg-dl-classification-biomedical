@@ -1,5 +1,8 @@
 # Basat en el test2 de ResNetCifar10 pa IntelNCS2, en detalls del YoloV5Cifar10 pa RPZ2W
 
+# en device_name="CPU", es prou lento (0.5s per inferencia) i relativament precís (aprox. 75%?)
+# en device_name="MYRIAD", es ràid (0.05s per inferencia) i precís (80%)
+
 import os
 import time
 import numpy as np
@@ -24,13 +27,13 @@ def main():
     core = ov.Core()
 
     # Ruta al modelo ONNX
-    model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-YoloV5s_cifar10/modelONNX/best-16-1-25.onnx')
+    model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-YoloV5s_cifar10/modelONNX/best16-1-25.onnx')
     
     # Cargar modelo
     model = core.read_model(model_path)
 
     # Compilar el modelo para el dispositivo especificado (CPU o MYRIAD)
-    compiled_model = core.compile_model(model=model, device_name="CPU")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
+    compiled_model = core.compile_model(model=model, device_name="MYRIAD")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
 
     # Definir las clases de CIFAR-10
     cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
