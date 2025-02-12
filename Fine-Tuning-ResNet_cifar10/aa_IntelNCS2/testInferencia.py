@@ -1,3 +1,6 @@
+# Extremadament lento i poc precis (12%) en device_name="CPU"
+# Molt ràpid (3000 imàgens en 30 segons) pero igual de imprecís en device_name="MYRIAD"
+
 import os
 import time
 import numpy as np
