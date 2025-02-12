@@ -1,3 +1,6 @@
+# En device_name="CPU" es prou lent (1.5s per inferencia) pero molt precís
+# En device_name="MYRIAD" es molt precís (93%) i molt ràpid (30s en total~)
+
 import os
 import time
 import numpy as np
@@ -24,7 +27,7 @@ def main():
     model = core.read_model(model_path)
 
     # Compilar el modelo para el dispositivo especificado (CPU o MYRIAD)
-    compiled_model = core.compile_model(model=model, device_name="CPU")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
+    compiled_model = core.compile_model(model=model, device_name="MYRIAD")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
 
     # Definir las clases de CIFAR-10
     cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
@@ -75,16 +78,16 @@ def main():
 
         start_time = time.time()  # Tiempo de inicio para esta imagen
 
-        result = compiled_model(image_tensor)# [output_key] <- Uncomment si algo falla
+        result = compiled_model(image_tensor)[output_key] #<-Comment o  Uncomment si algo falla
 
         inference_time = time.time() - start_time
         total_inference_time += inference_time
 
-        predicted_class = result.argmax(dim=1).item()
+        #predicted_class = result.argmax(dim=1).item()
 
         # Obtener predicción
         result_index = np.argmax(result)
-        print(f"Predicción para imagen {i}: {cifar10_classes[predicted_class]}")
+        print(f"Predicción para imagen {i}: {cifar10_classes[result_index]}")
         print(f"Tiempo de inferencia: {inference_time:.4f} segundos")
         print(f"Etiqueta real: {cifar10_classes[label]}")
 
