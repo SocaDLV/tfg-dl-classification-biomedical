@@ -16,7 +16,7 @@ model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-ResNet_cifar10/modelsONN
 model = core.read_model(model_path)
 
 # Compilar el modelo para el dispositivo especificado (CPU o MYRIAD)
-compiled_model = core.compile_model(model=model, device_name="CPU")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
+compiled_model = core.compile_model(model=model, device_name="MYRIAD")  # Cambiar "CPU" a "MYRIAD" cuando MYRIAD esté disponible
 
 # Definir las clases de CIFAR-10
 cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
