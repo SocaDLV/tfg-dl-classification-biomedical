@@ -1,4 +1,4 @@
-# S'intenten arreglar errors del V2 (no s'arribava a processar "Frog" per exemple) i gastem algo de fastai
+# S'intenten arreglar errors del V2 (no s'arribava a processar "Frog" per exemple)
 
 import os
 import torch
@@ -18,7 +18,7 @@ def main():
 
     # Ruta del modelo
     model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-ResNet_cifar10/modelsPytorch/stage-2-pytorch')
-    model = torch.load(model_path, map_location=torch.device('cpu'))
+    model = torch.load(model_path, map_location=torch.device('cpu'), weights_only=False)
     
     # Definir las clases CIFAR-10
     cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
