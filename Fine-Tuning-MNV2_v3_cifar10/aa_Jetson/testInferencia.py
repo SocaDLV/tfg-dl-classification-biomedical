@@ -15,15 +15,15 @@ def main():
   tf.config.optimizer.set_jit(True)  # Habilitar XLA
 
   #Checks pa vore si detecta la GPU:
-  print("El nom de la GPU es: " + {tf.test.gpu_device_name()})
-  print("La llista de dispositius es: " + {device_lib.list_local_devices()})
+  #print("El nom de la GPU es: " + str(tf.test.gpu_device_name()))
+  #print("La llista de dispositius es: " + str(device_lib.list_local_devices()))
 
   # Definir las clases de CIFAR-10
   cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
                     'dog', 'frog', 'horse', 'ship', 'truck']
 
   # Ruta a las imágenes de test
-  data_dir = os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/aa_PC/content/images/test')
+  data_dir = os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/aa_PC/content/images/')
 
   # Cargar las imágenes desde la carpeta local
   builder = tfds.folder_dataset.ImageFolder(data_dir)
@@ -43,7 +43,7 @@ def main():
 
   # Cargar el modelo entrenado
   model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/modelosFTuneados/mnv2_cifar10_bo_v1.h5')
-  model = tf.keras.models.load_model(model_path)
+  model = tf.keras.models.load_model(model_path, compile=False, custom_objects={})
 
   # Inicializar variables para métricas
   correct_predictions = 0
