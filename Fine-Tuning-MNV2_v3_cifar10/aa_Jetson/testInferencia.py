@@ -1,3 +1,5 @@
+# MODELS TensorRT -> TRT, no funciona
+
 # Basat en el testInferencia.py de PC, pero en canvis de rutes+detecció GPU Jetson
 
 import os
