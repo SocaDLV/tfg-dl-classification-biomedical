@@ -42,7 +42,7 @@ def main():
   test_dataset = raw_test.map(format_example).batch(1).prefetch(tf.data.AUTOTUNE)
 
   # Cargar el modelo entrenado
-  model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/modelosFTuneados/mnv2_cifar10_bo_v1.h5')
+  model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/modelosFTuneados/mnv2_cifar10_bo_v1_trt.bin')
   model = tf.keras.models.load_model(model_path, compile=False, custom_objects={})
 
   # Inicializar variables para métricas
