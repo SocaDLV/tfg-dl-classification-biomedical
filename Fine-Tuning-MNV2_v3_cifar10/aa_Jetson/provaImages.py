@@ -8,9 +8,8 @@ def preprocess_image(image_path, img_size=224):
     img = img.resize((img_size, img_size))
     img_array = np.array(img).astype(np.float32)
     img_array = (img_array / 127.5) - 1.0  # Normalización
-    img_array = np.transpose(img_array, (2, 0, 1))  # Transponer de HWC a CHW
-    img_array = np.expand_dims(img_array, axis=0)  # Añadir dimensión de batch
-    return img_array
+    img_array = np.expand_dims(img_array, axis=0)  # Añadir dimensión de batch (1, H, W, C)
+    return img_array  # Devuelve en formato NHWC (1, 224, 224, 3)
 
 # Cargar modelo ONNX
 rutaModel= os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/modelosFTuneados/model2b.onnx')
