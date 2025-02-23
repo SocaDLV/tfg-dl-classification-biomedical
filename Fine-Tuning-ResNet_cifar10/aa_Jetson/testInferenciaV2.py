@@ -65,6 +65,7 @@ def main():
 
         # Realizar la inferencia
         start_time = time.time()
+        input_image = np.transpose(input_image, (0, 2, 3, 1))  # Convierte a (1, 32, 32, 3)
         outputs = session.run([output_name], {input_name: input_image})
         inference_time = time.time() - start_time
         total_inference_time += inference_time
