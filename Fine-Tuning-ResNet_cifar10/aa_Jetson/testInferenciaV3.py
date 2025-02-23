@@ -19,7 +19,7 @@ def preprocess_image(image_path, img_size=32):
     img_array = Image.open(image_path).convert('RGB')
     img_array = transform(img_array)
     img_array = img_array.unsqueeze(0)
-    img_array = img_array.transpose((0, 2, 1, 3))
+
     return img_array.numpy()  # Devuelve en formato NHWC (1, 32, 32, 3)
 
 def main():
