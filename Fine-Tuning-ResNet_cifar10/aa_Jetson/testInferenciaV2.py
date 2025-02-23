@@ -13,8 +13,9 @@ def preprocess_image(image_path, img_size=32):
     # img = img.resize((img_size, img_size)) -> !!! No cal resize !!!
     img_array = np.array(img).astype(np.float32)
     img_array = (img_array / 127.5) - 1.0  # Normalización
+    img_array = np.transpose(img_array, (2, 0, 1))
     img_array = np.expand_dims(img_array, axis=0)  # Añadir dimensión de batch (1, H, W, C)
-    return img_array  # Devuelve en formato NHWC (1, 224, 224, 3)
+    return img_array  # Devuelve en formato NHWC (1, 32, 32, 3)
 
 def main():
     # Definir las clases de CIFAR-10
@@ -65,7 +66,6 @@ def main():
 
         # Realizar la inferencia
         start_time = time.time()
-        input_image = np.transpose(input_image, (0, 2, 3, 1))  # Convierte a (1, 32, 32, 3)
         outputs = session.run([output_name], {input_name: input_image})
         inference_time = time.time() - start_time
         total_inference_time += inference_time
