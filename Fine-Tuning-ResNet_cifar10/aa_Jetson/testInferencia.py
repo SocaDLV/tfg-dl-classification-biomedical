@@ -1,5 +1,7 @@
+# MODELS Pytorch + FastAI
 # Bassat en test V3 de RPZ2W_RP5
 # Canvis en, per exemple, model = torch load sense el wheigts = False
+# NO FUNCIONA
 
 import os
 import torch
