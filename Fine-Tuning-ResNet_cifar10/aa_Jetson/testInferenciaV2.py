@@ -25,7 +25,7 @@ def main():
     providers = ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
     
     # Ruta al modelo ONNX (asegúrate de haber convertido tu modelo SavedModel a ONNX previamente)
-    onnx_model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-ResNet_cifar10/modelsONNX/stage-2.onnx')
+    onnx_model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-ResNet_cifar10/modelsONNX/stage-2-Jetson.onnx')
     session = ort.InferenceSession(onnx_model_path, providers=providers)
     
     # Obtener los nombres de entrada y salida del modelo
