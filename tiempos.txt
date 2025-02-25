@@ -1,0 +1,8 @@
+MNV2 TENSORRT PARAMETROS: Cronometro total 1:26 minuts , 13.62 sec inferencia (cap 1)
+MNV2 CUDA PARAMETROS: Cronometro total 1:15 minuts , 15.29 sec inferencia (cap 2)
+MNV2 CPU: Cronometro total 0:59 minuts , 5,69 sec inferencia (cap 3)
+MNV2 TENSORRT: Cronometro total 1:02 minuts , 10.71 sec inferencia (cap 4)
+MNV2 CUDA: Cronometro total 1:01 minuts , 14.21 sec inferencia (cap 5)
+
+
+
