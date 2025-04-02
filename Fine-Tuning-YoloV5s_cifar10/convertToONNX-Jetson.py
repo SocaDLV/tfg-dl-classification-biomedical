@@ -14,10 +14,10 @@ model = torch.hub.load('ultralytics/yolov5' , 'custom' , path=str(model_path), f
 model.eval()  # Coloca el modelo en modo evaluación
 
 # Crear una entrada dummy con las dimensiones adecuadas (batch_size=1, 3 canales, 32x32)
-dummy_input = torch.rand(1, 3, 32, 32)
+dummy_input = torch.rand(1, 3, 224, 224)
 
 # Exportar a ONNX con opset 15
-torch.onnx.export(model, dummy_input, 'best16-1-25-Jetson.onnx', opset_version=15)
+torch.onnx.export(model, dummy_input, 'best16-1-25-Jetson_fix.onnx', opset_version=15)
 
 print("Modelo exportado a ONNX con opset 15")
 
