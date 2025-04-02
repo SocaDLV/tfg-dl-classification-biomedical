@@ -1,38 +1,41 @@
 
-# Basat en V2 de Jetson Pero més Ràpid
-# MODELS ONNX
+# BASAT en el test RPZ2W V2 de Yolo
 
 import os
-import time
 import numpy as np
-from pathlib import Path
+import time
+import random
 import onnxruntime as ort
 from PIL import Image
-import random
+from pathlib import Path
+from random import sample
 from torchvision import transforms
 
 transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
+    transforms.Resize((224,224)),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
 
 def preprocess_image(image_path, img_size=32):
     img_array = Image.open(image_path).convert('RGB')
     img_array = transform(img_array)
     img_array = img_array.unsqueeze(0)
 
-    return img_array.numpy()  # Devuelve en formato NHWC (1, 32, 32, 3)
+    return img_array.numpy()  # Devuelve en formato NHWC (1, 224, 224, 3)
+
 
 def main():
-    # Definir las clases de CIFAR-10
+
+    # Definir las clases CIFAR-10
     cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer',
-                       'dog', 'frog', 'horse', 'ship', 'truck']
+                        'dog', 'frog', 'horse', 'ship', 'truck']
 
     # Configurar ONNX Runtime para usar la GPU (si está disponible)
     providers = ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
     
     # Ruta al modelo ONNX (asegúrate de haber convertido tu modelo SavedModel a ONNX previamente)
-    onnx_model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-ResNet_cifar10/modelsONNX/stage-2-Jetson.onnx')
+    onnx_model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-YoloV5s_cifar10/modelONNX/best16-1-25-Jetson.onnx')
     session = ort.InferenceSession(onnx_model_path, providers=providers)
     
     # Obtener los nombres de entrada y salida del modelo
@@ -42,7 +45,7 @@ def main():
     # Ruta a las imágenes de test (imágenes organizadas en subdirectorios con nombres de clase)
     data_dir = os.path.expanduser('~/codi/TFG/Fine-Tuning-MNV2_v3_cifar10/aa_PC/content/images/test')
     data_path = Path(data_dir)
-    
+
     # Recopilar todas las imágenes .jpg de los subdirectorios
     all_image_paths = list(data_path.rglob('*.jpg'))
     if not all_image_paths:
@@ -81,7 +84,7 @@ def main():
         predicted_class = np.argmax(prediction, axis=1)[0]
 
         # Imprimir resultados parciales
-        print(f"Imagen {i+1}/{total_images}:")
+        print(f"  Imagen {i+1}/{total_images}:")
         print(f"  Predicción: {cifar10_classes[predicted_class]}")
         print(f"  Etiqueta real: {cifar10_classes[true_class]}")
         print(f"  Tiempo de inferencia: {inference_time:.4f} segundos")
