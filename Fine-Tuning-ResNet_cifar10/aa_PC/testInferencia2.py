@@ -16,7 +16,7 @@ def main():
     
     # Asegurarse de que el DataLoader esté bien configurado
     path = Path(r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-MNV2_v3_cifar10\aa_PC\content\images')
-    dls = ImageDataLoaders.from_folder(path, valid='test', valid_pct=0.2, bs=1, item_tfms=Resize(32), batch_tfms=Normalize.from_stats(*imagenet_stats))
+    dls = ImageDataLoaders.from_folder(path, valid='test', valid_pct=0.2, bs=1, batch_tfms=Normalize.from_stats(*imagenet_stats))
     
     # Re-crea el learner y asigna el modelo cargado
     learner = vision_learner(dls, resnet18, metrics=accuracy)
