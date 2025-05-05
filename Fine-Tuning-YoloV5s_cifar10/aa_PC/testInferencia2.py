@@ -32,7 +32,7 @@ def main():
 
     # Transformaciones para las imágenes (escalado, normalización, etc.)
     transform = T.Compose([
-        T.Resize((128, 128)),  # Escalar a tamaño esperado por YOLOv5 -> 224x224
+        T.Resize((128, 128)),  # Escalar a tamaño esperado por YOLOv5 -> 128x128 OJO antes estava mal
         T.ToTensor(),  # Convertir a tensor
         T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Normalización estándar
     ])
