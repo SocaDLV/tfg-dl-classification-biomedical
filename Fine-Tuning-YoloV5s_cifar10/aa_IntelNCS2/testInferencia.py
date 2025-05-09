@@ -27,7 +27,7 @@ def main():
     core = ov.Core()
 
     # Ruta al modelo ONNX
-    model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-YoloV5s_cifar10/modelONNX/best16-1-25.onnx')
+    model_path = os.path.expanduser('~/codi/TFG/Fine-Tuning-YoloV5s_cifar10/modelONNX/best16-1-25-128x128.onnx')
     
     # Cargar modelo
     model = core.read_model(model_path)

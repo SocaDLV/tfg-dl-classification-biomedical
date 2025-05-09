@@ -13,7 +13,7 @@ model_path = r'C:\Users\Ivan\Desktop\Asignatures5tcarrera\TFG\codi\Fine-Tuning-Y
 model = torch.hub.load('ultralytics/yolov5' , 'custom' , path=str(model_path), force_reload=True) #, map_location=torch.device('cpu'))
 
 # Export to ONNX
-torch.onnx.export(model, (torch.rand(1, 3, 224, 224), ), 'best16-1-25.onnx')
+torch.onnx.export(model, (torch.rand(1, 3, 128, 128), ), 'best16-1-25-128x128.onnx') # FIX 09/05/2025: 1,3,128,128 -> Si no, dona error al executar en IntelNCS2. Expected era 228, solucionat canviant esta instrucció
 
 # Revertir posixpath
 pathlib.PosixPath = temp
