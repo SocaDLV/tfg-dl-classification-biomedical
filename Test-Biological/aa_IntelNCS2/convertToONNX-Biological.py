@@ -7,7 +7,7 @@ import os
 model_path = os.path.expanduser('~/codi/TFG/Test-Biological/models/biological-stage-2-pytorch')
 
 # Cargar el modelo usando torch.load()
-model = torch.load(model_path, map_location=torch.device('cpu'))
+model = torch.load(model_path, map_location=torch.device('cpu'),weights_only=False)
 
 # Exportar a ONNX
 torch.onnx.export(model, (torch.rand(1, 3, 240, 320), ), 'biological-stage-2.onnx')
