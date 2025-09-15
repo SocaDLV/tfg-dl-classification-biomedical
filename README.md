@@ -1,6 +1,4 @@
-Brief, reproducible assets for a final-degree project benchmarking deep-learning image classification across heterogeneous edge hardware, plus a small biomedical demo.
-
-Repository contents
+Repository contents:
 
 - Introductory_Test/
 - - Dataset, per-hardware inference code, conversion scripts, and the MobileNetV2 model in all formats needed for inference.
