@@ -1,10 +1,26 @@
-Arxius utilitzats en el muntatge del treball de fi de grau (TFG), realitzat a la RTU, Riga.
+Brief, reproducible assets for a final-degree project benchmarking deep-learning image classification across heterogeneous edge hardware, plus a small biomedical demo.
 
-A CORREGIR/FER:
+Repository contents
 
-- Es carreguen les imatges de manera rara: test_0, test_1, test_10, test_100, test_1000, test_1001 ...  ✅
-- Adaptar "TensorFlowV2_IntelNCS2.py" per a que pase de 0-999 clases a una de les 200 del Tiny. Vorer bibliografia nº36 + arxius words.txt i wnids.txt ✅
-- Organitzar en carpetes el GitHub, una carpeta per model de inferencia,i dins,una per plataforma. ✅
-- Instalar OpenVINO en la RP2 + provar codi del IntelNCS2 ahi (checkear Python 3.9.0) (No fucniona pq OpenVINO necesita un Python de 64-bits) ✅
-- Run al main.py del entrenament de MobileNetV2, avore si es completa correctament ✅
-- Com entrenar MobileNetV2 amb imatges de 64x64 no funciona, escalarles a 94x94. REDUIR tamany de la carpeta de entrenament xq sinó plena la RAM. ✅
+- Introductory_Test/
+- - Dataset, per-hardware inference code, conversion scripts, and the MobileNetV2 model in all formats needed for inference.
+
+- Fine_Tuned_(NameOfTheModel)_CIFAR10/
+- - Inference code, trained models, and conversion scripts to reproduce all experiments in “Benchmarking fine-tuned models.”
+
+- Training_Notebooks/
+- - The .ipynb notebooks used for model training and fine-tuning.
+
+- Ranking_Performance_Fine_Tuned_CIFAR10.py
+- - Python script that computes the ranking used in “Benchmarking fine-tuned models,” with the final data already filled in.
+
+- Biomedical_Application/
+- - Inference code and correctly converted models to reproduce the biomedical test.
+
+- Important notes
+
+- - Pick the highest versioned file inside each code folder (e.g., V3 > V2, 3 > 1). The highest number is the most optimized version of that test.
+
+- - Code comments were intentionally removed and paths simplified to make reading easier and adaptation to other environments straightforward.
+
+- - Paths to datasets/models are minimal and may need to be adjusted to your local setup.
