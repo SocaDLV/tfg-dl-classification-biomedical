@@ -1,0 +1,3 @@
+mo --saved_model_dir C:\Users\... --data_type FP16 --output_dir C:\Users\...\model_ir --input_shape [1,224,224,3] --framework tf
+
+mo --saved_model_dir C:\Users\Ivan\... --output_dir C:\Users\...\model_ir --input_shape [1,224,224,3] --framework tf --use_legacy_frontend

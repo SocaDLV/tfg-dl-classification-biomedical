@@ -1,0 +1,1 @@
+mo --saved_model_dir C:\Users\...\mnv2_cifar10_bo_v1_saved_model_format --output_dir C:\Users\...\mnv2_cifar_10_bo_v1_modelIR --input_shape [1,224,224,3] --framework tf --use_legacy_frontend
